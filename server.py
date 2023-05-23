@@ -2,6 +2,7 @@ import json
 from turtle import pd
 from urllib import response
 from utils import api_call , read_json_file
+from settings import STRIPE_CONFIG
 import pdb
 
 
@@ -70,6 +71,21 @@ def check_api_backward_compability():
     
     return ok
 
-if __name__ == "__main__":
+def update_new_customer(stripe_data):
+    print(stripe_data)
+    try :
+        response = api_call(url=stripe_data.get("url") , body={"metadata[order_id]" : "123423"} , header={'Authorization' : 'Basic c2tfdGVzdF81MU45aEdiU0MzMGhwR2JTUzRtT2JoV0FENGZ0anFCNldtV1VVTTQyb3BON3NJYlowR2lJQ2dZV1BCZFprOHBwUk1uRlZUdkNmZFcwUWZINzFGTjRQSU5WTzAwNnRvR3BMUWQ6'} , method="POST")
+    except Exception as e :
+        print(e)
     print(1)
+    print(response)
+    print(response.status_code)
+    print(response.text)
+
+if __name__ == "__main__":
+    customer_data = {
+        "url" : "https://api.stripe.com/v1/customers/cus_NwXSjbTnBILlky",
+        "Authorization" : "Basic c2tfdGVzdF81MU45aEdiU0MzMGhwR2JTUzRtT2JoV0FENGZ0anFCNldtV1VVTTQyb3BON3NJYlowR2lJQ2dZV1BCZFprOHBwUk1uRlZUdkNmZFcwUWZINzFGTjRQSU5WTzAwNnRvR3BMUWQ6"
+    }
+    update_new_customer(customer_data)
     
